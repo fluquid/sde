@@ -1,0 +1,40 @@
+<project name="sde" default="dist" basedir=".">
+    <property name="build" value="build" />
+    <property name="src" value="src" />
+    <property name="lib" value="lib" />
+    <property name="dist" value="dist" />
+
+    <path id="classpath">
+        <fileset dir="${lib}">
+            <include name="*.jar" />
+        </fileset>
+        <fileset dir="${build}">
+            <include name="*.class" />
+        </fileset>
+    </path>
+
+    <target name="compile">
+		<mkdir dir="${build}"/>
+        <javac srcdir="${src}" destdir="${build}">
+            <classpath refid="classpath" />
+        </javac>
+    </target>
+
+	<target name="dist" depends="compile"
+		description="generate the distribution">
+		<mkdir dir="${dist}"/>
+
+		<jar jarfile="${dist}/sde-runnable.jar" basedir="${build}">
+			<manifest>
+				<attribute name="Class-Path" value="${lib}/nekohtml.jar:${lib}/xercesImp.jar" />
+				<attribute name="Main-Class" value="org.seagatesoft.sde.AppConsole"/>
+			</manifest>
+		</jar>
+    </target>
+
+    <target name="clean"
+        description="clean up">
+		<delete dir="${build}"/>
+		<delete dir="${dist}"/>
+  </target>
+</project>
