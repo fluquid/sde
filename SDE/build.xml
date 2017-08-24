@@ -24,10 +24,12 @@
 		description="generate the distribution">
 		<mkdir dir="${dist}"/>
 
-		<jar jarfile="${dist}/sde-runnable.jar" basedir="${build}">
+        <jar jarfile="${dist}/sde-runnable.jar">
+            <fileset dir="./lib" includes="nekohtml.jar,xercesImpl.jar" />
+            <fileset dir="./build" />
 			<manifest>
-				<attribute name="Class-Path" value="${lib}/nekohtml.jar:${lib}/xercesImp.jar" />
 				<attribute name="Main-Class" value="org.seagatesoft.sde.AppConsole"/>
+                <attribute name="Class-Path" value="${lib}/nekohtml.jar,${lib}/xercesImpl.jar" />
 			</manifest>
 		</jar>
     </target>
